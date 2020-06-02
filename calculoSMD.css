@@ -1,0 +1,29 @@
+.contentSMD .calculoSMD {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    width: 50%;
+}
+
+.contentSMD h1 {
+    padding: 10px;
+}
+
+.contentSMD .calculoSMD #codResistor-error {
+    color: #c70039;
+}
+
+
+.contentSMD .calculoSMD .content-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+
+h2 {
+    color: #900c3f;
+}
+

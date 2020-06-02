@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./calcPotencia.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+</head>
+
+<body class="contentPotencia">
+    <div class="header">
+        <h1> Calculadora </h1>
+    </div>
+
+    <div class="header-options">
+        <div class="options">
+            <a type="button" class="btn btn-primary" href="calculoSMD.html">Calculo SMD</a>
+            <a type="button" class="btn btn-secondary" href="leiOhm.html">Lei de ohm</a>
+            <a type="button" class="btn btn-success" href="resistor.html">Resistor Série/Paralelo</a>
+            <a type="button" class="btn btn-dark" href="calcPotencia.html">Calculadora de Potência</a>
+            <a type="button" class="btn btn-info" href="estrelaTriangulo.html">Estrela-Triangulo</a>
+        </div>
+    </div>
+
+    <h1> Calculadora de Potência </h1>
+
+    <div class="calculoPotencia">
+        <div class="menu-leiohm">
+            <button type="button" class="btn btn-primary" id='btnMonofasico'> Sistema Monofasico </button>
+            <button type="button" class="btn btn-secondary" id='btnTrifasico'> Sistema Trifasico </button>
+            <button type="button" class="btn btn-dark" id='btnDC'> Sistema DC </button>
+        </div>
+        <h3 id="title-calc"></h3>
+        <div class="box-inputs">
+            <span id='title-tensao'>Tensão</span>
+            <input type='text' value='0' id="tensao" />
+            <span id='title-corrente'>Corrente</span>
+            <input type='text' value='0' id="corrente" />
+            <span id='title-fase'>fase</span>
+            <input type='text' value='0' id="fase" />
+        </div>
+        <h2 id="resultPotencia"></h2>
+        <div class="box-button">
+            <button type="button" class="btn btn-primary" id="btnCalcular"> Calcular </button>
+            <button type="button" class="btn btn-danger" id="btnLimpar"> Limpar </button>
+        </div>
+    </div>
+
+    <script>
+        $('#title-tensao').attr("hidden", true);
+        $('#tensao').attr("hidden", true);
+        $('#title-corrente').attr("hidden", true);
+        $('#corrente').attr("hidden", true);
+        $('#title-fase').attr("hidden", true);
+        $('#fase').attr("hidden", true);
+        $('#btnCalcular').attr("hidden", true);
+        $('#btnLimpar').attr("hidden", true);
+
+        $('#btnCalcular').click(function (event) {
+            var tensao = parseFloat($('#tensao').val());
+            var corrente = parseFloat($('#corrente').val());
+            var fase = parseFloat($('#fase').val());
+
+            //SISTEMA MONOFASICO
+            if (tipoCalc === 'monofasico') {
+                tensao = corrente * resistencia;
+                $('#monofasico').val(tensao);
+                $('#resultpotencia').text('Resultado: ' + tensao + 'V')
+            }
+
+            //SISTEMA TRIFASICO
+            if (tipoCalc === 'trifasico') {
+                corrente = tensao / resistencia;
+                $('#corrente').val(corrente);
+                $('#resultpotencia').text('Resultado: ' + corrente + 'A')
+            }
+
+            //SISTEMA DC
+            if (tipoCalc === 'sisdc') {
+                resistencia = tensao / corrente;
+                $('#resistencia').val(resistencia);
+                $('#resultpotencia').text('Resultado: ' + resistencia + 'Ω')
+            }
+        })
+
+        $('#btnLimpar').click(function () {
+            clearInput();
+        })
+        $('#btnMonofasico').click(function () {
+            $('#title-calc').text('Sistema Monofasico');
+            clearInput();
+            openInputs();
+        })
+
+        $('#btnTrifasico').click(function () {
+            $('#title-calc').text('Sistema Trifasico');
+            clearInput();
+            openInputs();
+        })
+
+        $('#btnDC').click(function () {
+            $('#title-calc').text('Sistema DC');
+            clearInput();
+            openInputs();
+        })
+
+        $('#tensao').keyup(function () {
+            var value = $('#tensao').val();
+
+            if (value.length === 0) $('#tensao').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#tensao').val(value.slice(1, value.length));
+        })
+
+        $('#corrente').keyup(function () {
+            var value = $('#corrente').val();
+
+            if (value.length === 0) $('#corrente').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#corrente').val(value.slice(1, value.length));
+        })
+
+        $('#fase').keyup(function () {
+            var value = $('#fase').val();
+
+            if (value.length === 0) $('#fase').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#fase').val(value.slice(1, value.length));
+        })
+        
+        function openInputs() {
+            $('#title-tensao').removeAttr("hidden");
+            $('#tensao').removeAttr("hidden");
+            $('#title-corrente').removeAttr("hidden");
+            $('#corrente').removeAttr("hidden");
+            $('#title-fase').removeAttr("hidden");
+            $('#fase').removeAttr("hidden");
+            $('#btnCalcular').removeAttr("hidden");
+            $('#btnLimpar').removeAttr("hidden");
+        }
+
+        function clearInput() {
+            $('#tensao').val('0');
+            $('#corrente').val('0');
+            $('#fase').val('0');
+            $('#resultPotencia').text('');
+        }
+    </script>
+</body>
+<footer>
+
+</footer>
+
+</html>

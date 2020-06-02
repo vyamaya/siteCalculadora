@@ -1,0 +1,27 @@
+.contentPotencia h1 {
+    padding: 10px;
+}
+
+.contentPotencia .calculoPotencia {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentPotencia .calculoPotencia .menu-potencia {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.contentPotencia .calculoPotencia .box-inputs {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentPotencia .calculoPotencia span, .contentPotencia .calculoPotencia button {
+    margin-right: 5px;
+    margin-left: 5px;
+}

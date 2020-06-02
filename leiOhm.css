@@ -1,0 +1,27 @@
+.contentLeiOhm h1 {
+    padding: 10px;
+}
+
+.contentLeiOhm .calcLeiOhm {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentLeiOhm .calcLeiOhm .menu-leiohm {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.contentLeiOhm .calcLeiOhm .box-inputs {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentLeiOhm .calcLeiOhm span, .contentLeiOhm .calcLeiOhm button {
+    margin-right: 5px;
+    margin-left: 5px;
+}

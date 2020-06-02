@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./estrelaTriangulo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+</head>
+
+<body class="contentEstrelaTriangulo">
+    <div class="header">
+        <h1> Calculadora </h1>
+    </div>
+
+    <div class="header-options">
+        <div class="options">
+            <a type="button" class="btn btn-primary" href="calculoSMD.html">Calculo SMD</a>
+            <a type="button" class="btn btn-secondary" href="leiOhm.html">Lei de ohm</a>
+            <a type="button" class="btn btn-success" href="resistor.html">Resistor Série/Paralelo</a>
+            <a type="button" class="btn btn-dark" href="calcPotencia.html">Calculadora de Potência</a>
+            <a type="button" class="btn btn-info" href="estrelaTriangulo.html">Estrela-Triangulo</a>
+        </div>
+    </div>
+
+    <h1> Estrela Triangulo </h1>
+
+    <div class="calcEstrelaTriangulo">
+        <div class="box-inputs">
+            <span id='title-resistor-1'>Resistor A</span>
+            <input type='text' value='0' id="resistor-1" />
+            <span id='title-resistor-2'>Resistor B </span>
+            <input type='text' value='0' id="resistor-2" />
+            <span id='title-resistor-3'>Resistor C </span>
+            <input type='text' value='0' id="resistor-3" />
+        </div>
+
+        <h2 id="resultA"></h2>
+        <h2 id="resultB"></h2>
+        <h2 id="resultC"></h2>
+        <div class="box-button">
+            <button type="button" class="btn btn-primary" id="btnCalcular"> Calcular </button>
+            <button type="button" class="btn btn-danger" id="btnLimpar"> Limpar </button>
+        </div>
+    </div>
+
+    <script>
+        $('#btnCalcular').click(function () {
+            var resistor1 = parseFloat($('#resistor-1').val());
+            var resistor2 = parseFloat($('#resistor-2').val());
+            var resistor3 = parseFloat($('#resistor-3').val());
+
+            var n = resistor1 + resistor2 + resistor3;
+
+            $('#resultA').text('R1: ' + (resistor1*resistor2)/n);
+            $('#resultB').text('R2: ' + (resistor2*resistor3)/n);
+            $('#resultC').text('R3: ' + (resistor3*resistor1)/n);
+        });
+
+        $('#btnLimpar').click(function () {
+            clearInputs();
+        })
+
+        $('#resistor-1').keyup(function () {
+            var value = $('#resistor-1').val();
+
+            if (value.length === 0) $('#resistor-1').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#resistor-1').val(value.slice(1, value
+                .length));
+        })
+
+        $('#resistor-2').keyup(function () {
+            var value = $('#resistor-2').val();
+
+            if (value.length === 0) $('#resistor-2').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#resistor-2').val(value.slice(1, value
+                .length));
+        })
+
+        $('#resistor-3').keyup(function () {
+            var value = $('#resistor-3').val();
+
+            if (value.length === 0) $('#resistor-3').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#resistor-3').val(value.slice(1, value
+                .length));
+        })
+
+        function clearInputs() {
+            $('#resistor-1').val('0');
+            $('#resistor-2').val('0');
+            $('#resistor-3').val('0');
+            $('#resultA').text('');
+            $('#resultB').text('');
+            $('#resultC').text('');
+        }
+    </script>
+</body>
+<footer>
+
+</footer>
+
+</html>

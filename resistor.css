@@ -1,0 +1,27 @@
+.contentResistor h1 {
+    padding: 10px;
+}
+
+.contentResistor .calcResistor {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentResistor .calcResistor .menu-resistor {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.contentResistor .calcResistor .box-inputs {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentResistor .calcResistor span, .contentResistor .calcResistor button {
+    margin-right: 5px;
+    margin-left: 5px;
+}

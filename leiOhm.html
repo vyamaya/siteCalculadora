@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./leiOhm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+</head>
+
+<body class="contentLeiOhm">
+    <div class="header">
+        <h1> Calculadora </h1>
+    </div>
+
+    <div class="header-options">
+        <div class="options">
+            <a type="button" class="btn btn-primary" href="calculoSMD.html">Calculo SMD</a>
+            <a type="button" class="btn btn-secondary" href="leiOhm.html">Lei de ohm</a>
+            <a type="button" class="btn btn-success" href="resistor.html">Resistor Série/Paralelo</a>
+            <a type="button" class="btn btn-dark" href="calcPotencia.html">Calculadora de Potência</a>
+            <a type="button" class="btn btn-info" href="estrelaTriangulo.html">Estrela-Triangulo</a>
+        </div>
+    </div>
+
+    <h1> Lei de Ohm </h1>
+
+    <div class="calcLeiOhm">
+        <div class="menu-leiohm">
+            <button type="button" class="btn btn-primary" id='btnTensao'> Tensão </button>
+            <button type="button" class="btn btn-secondary" id='btnCorrente'> Corrente </button>
+            <button type="button" class="btn btn-dark" id='btnResistencia'> Resistencia </button>
+            <button type="button" class="btn btn-info" id='btnPotencia'> Potência </button>
+        </div>
+        <h3 id="title-calc"></h3>
+        <div class="box-inputs">
+            <span id='title-tensao'>Tensão (V)</span>
+            <input type='text' value='0' id="tensao" />
+            <span id='title-corrente'>Corrente (I) </span>
+            <input type='text' value='0' id="corrente" />
+            <span id='title-resistencia'>Resistencia (R)</span>
+            <input type='text' value='0' id="resistencia" />
+            <span id='title-potencia'>Potência (P)</span>
+            <input type='text' value='0' id="potencia" />
+        </div>
+        <h2 id="resultLeiOhm"></h2>
+        <div class="box-button">
+            <button type="button" class="btn btn-primary" id="btnCalcular"> Calcular </button>
+            <button type="button" class="btn btn-danger" id="btnLimpar"> Limpar </button>
+        </div>
+
+    </div>
+
+    <script>
+        var tipoCalc;
+        $('#title-tensao').attr("hidden", true);
+        $('#tensao').attr("hidden", true);
+        $('#title-corrente').attr("hidden", true);
+        $('#corrente').attr("hidden", true);
+        $('#title-resistencia').attr("hidden", true);
+        $('#resistencia').attr("hidden", true);
+        $('#title-potencia').attr("hidden", true);
+        $('#potencia').attr("hidden", true);
+        $('#btnCalcular').attr("hidden", true);
+        $('#btnLimpar').attr("hidden", true);
+
+        $('#btnLimpar').click(function (event) {
+            clearInput();
+        })
+        $('#btnCalcular').click(function (event) {
+            var tensao = parseFloat($('#tensao').val());
+            var corrente = parseFloat($('#corrente').val());
+            var resistencia = parseFloat($('#resistencia').val());
+            var potencia = parseFloat($('#potencia').val());
+
+            //TENSAO
+            if (tipoCalc === 'tensao') {
+                tensao = corrente * resistencia;
+                $('#tensao').val(tensao);
+                $('#resultLeiOhm').text('Resultado: ' + tensao + 'V')
+            }
+
+            //CORRENTE
+            if (tipoCalc === 'corrente') {
+                corrente = tensao / resistencia;
+                $('#corrente').val(corrente);
+                $('#resultLeiOhm').text('Resultado: ' + corrente + 'A')
+            }
+
+            //RESISTENCIA
+            if (tipoCalc === 'resistencia') {
+                resistencia = tensao / corrente;
+                $('#resistencia').val(resistencia);
+                $('#resultLeiOhm').text('Resultado: ' + resistencia + 'Ω')
+            }
+
+            //POTENCIA
+            if (tipoCalc === 'potencia') {
+                potencia = tensao * corrente;
+                $('#potencia').val(potencia);
+                $('#resultLeiOhm').text('Resultado: ' + potencia + 'W')
+            }
+
+
+        })
+
+        $('#btnTensao').click(function () {
+            tipoCalc = 'tensao';
+            $('#title-calc').text('Tensão');
+            $('#resultLeiOhm').text('');
+            $('#title-tensao').attr("hidden", true);
+            $('#tensao').attr("hidden", true);
+            $('#title-corrente').removeAttr("hidden");
+            $('#corrente').removeAttr("hidden");
+            $('#title-resistencia').removeAttr("hidden");
+            $('#resistencia').removeAttr("hidden");
+            $('#title-potencia').attr("hidden", true);
+            $('#potencia').attr("hidden", true);
+            clearInput();
+            $('#btnCalcular').removeAttr("hidden");
+            $('#btnLimpar').removeAttr("hidden");
+        })
+
+        $('#btnCorrente').click(function () {
+            tipoCalc = 'corrente';
+            $('#title-calc').text('Corrente');
+            $('#resultLeiOhm').text('');
+            $('#title-tensao').removeAttr("hidden");
+            $('#tensao').removeAttr("hidden");
+            $('#title-corrente').attr("hidden", true);
+            $('#corrente').attr("hidden", true);
+            $('#title-resistencia').removeAttr("hidden");
+            $('#resistencia').removeAttr("hidden");
+            $('#title-potencia').attr("hidden", true);
+            $('#potencia').attr("hidden", true);
+            clearInput();
+            $('#btnCalcular').removeAttr("hidden");
+            $('#btnLimpar').removeAttr("hidden");
+        })
+
+        $('#btnResistencia').click(function () {
+            tipoCalc = 'resistencia';
+            $('#title-calc').text('Resistencia');
+            $('#resultLeiOhm').text('');
+            $('#title-tensao').removeAttr("hidden");
+            $('#tensao').removeAttr("hidden");
+            $('#title-corrente').removeAttr("hidden");
+            $('#corrente').removeAttr("hidden");
+            $('#title-resistencia').attr("hidden", true);
+            $('#resistencia').attr("hidden", true);
+            $('#title-potencia').attr("hidden", true);
+            $('#potencia').attr("hidden", true);
+            clearInput();
+            $('#btnCalcular').removeAttr("hidden");
+            $('#btnLimpar').removeAttr("hidden");
+        })
+
+        $('#btnPotencia').click(function () {
+            tipoCalc = 'potencia';
+            $('#title-calc').text('Potência');
+            $('#resultLeiOhm').text('');
+            $('#title-tensao').removeAttr("hidden");
+            $('#tensao').removeAttr("hidden");
+            $('#title-corrente').removeAttr("hidden");
+            $('#corrente').removeAttr("hidden");
+            $('#title-resistencia').attr("hidden", true);
+            $('#resistencia').attr("hidden", true);
+            $('#title-potencia').attr("hidden", true);
+            $('#potencia').attr("hidden", true);
+            clearInput();
+            $('#btnCalcular').removeAttr("hidden");
+            $('#btnLimpar').removeAttr("hidden");
+        })
+
+        $('#tensao').keyup(function () {
+            var value = $('#tensao').val();
+
+            if (value.length === 0) $('#tensao').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#tensao').val(value.slice(1, value.length));
+        })
+
+        $('#corrente').keyup(function () {
+            var value = $('#corrente').val();
+
+            if (value.length === 0) $('#corrente').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#corrente').val(value.slice(1, value.length));
+        })
+
+        $('#resistencia').keyup(function () {
+            var value = $('#resistencia').val();
+
+            if (value.length === 0) $('#resistencia').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#resistencia').val(value.slice(1, value
+                .length));
+        })
+
+        $('#potencia').keyup(function () {
+            var value = $('#potencia').val();
+
+            if (value.length === 0) $('#potencia').val('0');
+
+            if (value.length > 0 && value.slice(0, 1) === '0') $('#potencia').val(value.slice(1, value.length));
+        })
+
+        function clearInput() {
+            $('#tensao').val('0');
+            $('#corrente').val('0');
+            $('#resistencia').val('0');
+            $('#potencia').val('0');
+        }
+    </script>
+</body>
+<footer>
+
+</footer>
+
+</html>

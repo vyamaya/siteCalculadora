@@ -1,0 +1,27 @@
+.contentEstrelaTriangulo h1 {
+    padding: 10px;
+}
+
+.contentEstrelaTriangulo .calcEstrelaTriangulo {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentEstrelaTriangulo .calcEstrelaTriangulo .menu-estrelaTriangulo {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.contentEstrelaTriangulo .calcEstrelaTriangulo .box-inputs {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.contentEstrelaTriangulo .calcEstrelaTriangulo span, .contentEstrelaTriangulo .calcEstrelaTriangulo button {
+    margin-right: 5px;
+    margin-left: 5px;
+}
