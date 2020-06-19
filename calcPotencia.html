@@ -47,10 +47,13 @@
             <input type='text' value='0' id="tensao" />
             <span id='title-corrente'>Corrente</span>
             <input type='text' value='0' id="corrente" />
-            <span id='title-fase'>fase</span>
+            <span id='title-fase'>Fase</span>
             <input type='text' value='0' id="fase" />
         </div>
-        <h2 id="resultPotencia"></h2>
+        <h4 id="result1"></h4>
+        <h4 id="result2"></h4>
+        <h4 id="result3"></h4>
+        <h4 id="result4"></h4>
         <div class="box-button">
             <button type="button" class="btn btn-primary" id="btnCalcular"> Calcular </button>
             <button type="button" class="btn btn-danger" id="btnLimpar"> Limpar </button>
@@ -66,6 +69,7 @@
         $('#fase').attr("hidden", true);
         $('#btnCalcular').attr("hidden", true);
         $('#btnLimpar').attr("hidden", true);
+        var tipoCalc;
 
         $('#btnCalcular').click(function (event) {
             var tensao = parseFloat($('#tensao').val());
@@ -74,23 +78,42 @@
 
             //SISTEMA MONOFASICO
             if (tipoCalc === 'monofasico') {
-                tensao = corrente * resistencia;
-                $('#monofasico').val(tensao);
-                $('#resultpotencia').text('Resultado: ' + tensao + 'V')
+                //FATOR POTENCIA
+                $('#result1').text('Fator de Potência: ' + Math.cos(fase))
+                
+                //POTENCIA APARENTE
+                $('#result2').text('Potência Aparente: ' + tensao*corrente);
+
+                //POTENCIA REATIVA
+                var pReativa = tensao * corrente * Math.sin(fase);
+                $('#result3').text('Potência Reativa: ' + pReativa + ' Var');
+
+                //POTENCIA ATIVA
+                var pAtiva = tensao * corrente * Math.cos(fase);
+                $('#result4').text('Potência Ativa: ' + pAtiva + ' W');
             }
 
             //SISTEMA TRIFASICO
             if (tipoCalc === 'trifasico') {
-                corrente = tensao / resistencia;
-                $('#corrente').val(corrente);
-                $('#resultpotencia').text('Resultado: ' + corrente + 'A')
+                //FATOR POTENCIA
+                $('#result1').text('Fator de Potência: ' + Math.cos(fase))
+                
+                //POTENCIA APARENTE 
+                var pAparente = Math.sqrt(3) * tensao * corrente;
+                $('#result2').text('Potência Aparente: ' + pAparente + ' VA');
+
+                //POTENCIA REATIVA
+                var pReativa = Math.sqrt(3) * tensao * corrente * Math.sin(fase);
+                $('#result3').text('Potência Reativa: ' + pReativa + ' Var');
+
+                //POTENCIA ATIVA
+                var pAtiva = Math.sqrt(3) * tensao * corrente * Math.cos(fase);
+                $('#result4').text('Potência Ativa: ' + pAtiva + ' W');
             }
 
             //SISTEMA DC
             if (tipoCalc === 'sisdc') {
-                resistencia = tensao / corrente;
-                $('#resistencia').val(resistencia);
-                $('#resultpotencia').text('Resultado: ' + resistencia + 'Ω')
+                $('#result1').text('Potência Aparente: ' + tensao * corrente + ' VA');
             }
         })
 
@@ -99,20 +122,25 @@
         })
         $('#btnMonofasico').click(function () {
             $('#title-calc').text('Sistema Monofasico');
+            tipoCalc = 'monofasico';
             clearInput();
             openInputs();
         })
 
         $('#btnTrifasico').click(function () {
             $('#title-calc').text('Sistema Trifasico');
+            tipoCalc = 'trifasico';
             clearInput();
             openInputs();
         })
 
         $('#btnDC').click(function () {
             $('#title-calc').text('Sistema DC');
+            tipoCalc = 'sisdc';
             clearInput();
             openInputs();
+            $('#title-fase').attr("hidden", true);
+            $('#fase').attr("hidden", true);
         })
 
         $('#tensao').keyup(function () {
@@ -154,7 +182,10 @@
             $('#tensao').val('0');
             $('#corrente').val('0');
             $('#fase').val('0');
-            $('#resultPotencia').text('');
+            $('#result1').text('');
+            $('#result2').text('');
+            $('#result3').text('');
+            $('#result4').text('');
         }
     </script>
 </body>
