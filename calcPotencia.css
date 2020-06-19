@@ -2,6 +2,10 @@
     padding: 10px;
 }
 
+.contentPotencia h4 {
+    font-size: 18px;
+}
+
 .contentPotencia .calculoPotencia {
     display: flex;
     align-items: flex-start;
@@ -24,4 +28,8 @@
 .contentPotencia .calculoPotencia span, .contentPotencia .calculoPotencia button {
     margin-right: 5px;
     margin-left: 5px;
+}
+
+.contentPotencia .calculoPotencia .box-button {
+    padding-top: 10px;
 }
