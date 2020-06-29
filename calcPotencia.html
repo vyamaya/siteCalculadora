@@ -75,40 +75,42 @@
             var tensao = parseFloat($('#tensao').val());
             var corrente = parseFloat($('#corrente').val());
             var fase = parseFloat($('#fase').val());
+            var rad = (Math.PI/180) * fase
 
             //SISTEMA MONOFASICO
             if (tipoCalc === 'monofasico') {
                 //FATOR POTENCIA
-                $('#result1').text('Fator de Potência: ' + Math.cos(fase))
+                
+                $('#result1').text('Fator de Potência: ' + Math.cos(rad).toFixed(2))
                 
                 //POTENCIA APARENTE
                 $('#result2').text('Potência Aparente: ' + tensao*corrente);
 
                 //POTENCIA REATIVA
-                var pReativa = tensao * corrente * Math.sin(fase);
+                var pReativa = tensao * corrente * Math.sin(rad).toFixed(2);
                 $('#result3').text('Potência Reativa: ' + pReativa + ' Var');
 
                 //POTENCIA ATIVA
-                var pAtiva = tensao * corrente * Math.cos(fase);
+                var pAtiva = tensao * corrente * Math.cos(rad).toFixed(2);
                 $('#result4').text('Potência Ativa: ' + pAtiva + ' W');
             }
 
             //SISTEMA TRIFASICO
             if (tipoCalc === 'trifasico') {
                 //FATOR POTENCIA
-                $('#result1').text('Fator de Potência: ' + Math.cos(fase))
+                $('#result1').text('Fator de Potência: ' + Math.cos(rad).toFixed(2))
                 
                 //POTENCIA APARENTE 
                 var pAparente = Math.sqrt(3) * tensao * corrente;
-                $('#result2').text('Potência Aparente: ' + pAparente + ' VA');
+                $('#result2').text('Potência Aparente: ' + pAparente.toFixed(2) + ' VA');
 
                 //POTENCIA REATIVA
-                var pReativa = Math.sqrt(3) * tensao * corrente * Math.sin(fase);
-                $('#result3').text('Potência Reativa: ' + pReativa + ' Var');
+                var pReativa = Math.sqrt(3) * tensao * corrente * Math.sin(rad);
+                $('#result3').text('Potência Reativa: ' + pReativa.toFixed(2) + ' Var');
 
                 //POTENCIA ATIVA
-                var pAtiva = Math.sqrt(3) * tensao * corrente * Math.cos(fase);
-                $('#result4').text('Potência Ativa: ' + pAtiva + ' W');
+                var pAtiva = Math.sqrt(3) * tensao * corrente * Math.cos(rad);
+                $('#result4').text('Potência Ativa: ' + pAtiva.toFixed(2) + ' W');
             }
 
             //SISTEMA DC
